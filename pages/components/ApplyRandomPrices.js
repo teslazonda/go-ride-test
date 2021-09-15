@@ -4,7 +4,6 @@ import { Mutation } from 'react-apollo';
 import { Layout, Button, Banner, Toast, Stack, Frame } from '@shopify/polaris';
 import { Context } from '@shopify/app-bridge-react';
 
-// GraphQL mutation that updates the prices of products
 const UPDATE_PRICE = gql`
   mutation productVariantUpdate($input: ProductVariantInput!) {
     productVariantUpdate(input: $input) {
@@ -24,61 +23,69 @@ class ApplyRandomPrices extends React.Component {
 
   render() {
     return ( // Uses mutation's input to update product prices
-      <Mutation mutation={UPDATE_PRICE}>
-        {(handleSubmit, { error, data }) => {
-          const [hasResults, setHasResults] = useState(false);
+    <Mutation mutation={UPDATE_PRICE}>
+    {(handleSubmit, { error, data }) => {
+      const [hasResults, setHasResults] = useState(false);
 
-          const showError = error && (
-            <Banner status="critical">{error.message}</Banner>
-          );
+      const showError = error && (
+        <Banner status="critical">{error.message}</Banner>
+        );
 
-          const showToast = hasResults && (
-            <Toast
-              content="Successfully updated"
-              onDismiss={() => setHasResults(false)}
-            />
+        const showToast = hasResults && (
+          <Toast
+          content="Successfully updated"
+          onDismiss={() => setHasResults(false)}
+          />
           );
 
           return (
             <Frame>
-              {showToast}
-              <Layout.Section>
-                {showError}
-              </Layout.Section>
+            {showToast}
+            <Layout.Section>
+            {showError}
+            </Layout.Section>
 
-              <Layout.Section>
-                <Stack distribution={"center"}>
-                  <Button
-                    primary
-                    textAlign={"center"}
-                    onClick={() => {
-                      let promise = new Promise((resolve) => resolve());
-                      for (const variantId in this.props.selectedItems) {
-                        const price = Math.random().toPrecision(3) * 10;
-                        const productVariableInput = {
-                          id: this.props.selectedItems[variantId].variants.edges[0].node.id,
-                          price: price,
-                        };
+            <Layout.Section>
+            <Stack distribution={"center"}>
+            <form>
+            <label>
+            <input type="text" id="newPrice" name="newPrice" />
+            </label>
+            </form>
+            <Button
+            primary
+            textAlign={"center"}
+            onClick={() => {
+              let promise = new Promise((resolve) => resolve());
+              for (const variantId in this.props.selectedItems) {
+                console.log(variantId)
+                console.log(this.props.selectedItems[variantId].variants.edges[0].node.id)
+                const price = parseInt(document.querySelector('#newPrice').value);
+                const productVariableInput = {
+                  id: this.props.selectedItems[variantId].variants.edges[0].node.id,
+                  price: price,
+                };
+                console.log(productVariableInput);
 
-                        promise = promise.then(() => handleSubmit({ variables: { input: productVariableInput } }));
-                      }
+                promise = promise.then(() => handleSubmit({ variables: { input: productVariableInput } }));
+              }
 
-                      if (promise) {
-                        promise.then(() => this.props.onUpdate().then(() => setHasResults(true)));
-                      }
-                    }
-                    }
-                  >
-                    Randomize prices
-                  </Button>
-                </Stack>
-              </Layout.Section>
-            </Frame>
+              if (promise) {
+                promise.then(() => this.props.onUpdate().then(() => setHasResults(true)));
+              }
+            }
+          }
+          >
+          Change price
+          </Button>
+          </Stack>
+          </Layout.Section>
+          </Frame>
           );
         }}
-      </Mutation>
-    );
-  }
-}
+        </Mutation>
+        );
+      }
+    }
 
-export default ApplyRandomPrices;
+    export default ApplyRandomPrices;
