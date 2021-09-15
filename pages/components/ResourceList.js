@@ -145,7 +145,6 @@ class ResourceListWithProducts extends React.Component {
               </Card>
 
               <ApplyRandomPrices selectedItems={this.state.selectedNodes} onUpdate={refetch} />
-              <CronUpdateTitle />
             </>
           );
         }}
