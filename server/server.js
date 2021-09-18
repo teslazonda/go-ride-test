@@ -6,6 +6,9 @@ import Shopify, { ApiVersion } from "@shopify/shopify-api";
 import Koa from "koa";
 import next from "next";
 import Router from "koa-router";
+const axios = require('axios').default; // using axios for API calls
+const faker = require('faker');
+const cron = require('node-cron');
 
 dotenv.config();
 const port = parseInt(process.env.PORT, 10) || 8081;
@@ -105,3 +108,25 @@ app.prepare().then(async () => {
     console.log(`> Ready on http://localhost:${port}`);
   });
 });
+async function checkValue() {
+let randomColor = faker.commerce.productAdjective();
+  try {
+  const { data: checkResponse } = await axios.put('https://5628696d44fec89037c89baf32777144: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@node-go-ride.myshopify.com/admin/api/2021-07/products/7159751311511.json',{
+      "product": {
+        "id":  7159751311511,
+        "title": `Fake T-shirt ${randomColor}`
+      }
+  })
+  console.log(checkResponse);
+}
+  catch (err) {
+    console.warn(err);
+  }
+};
+const CronJob = () => {
+cron.schedule('* * * * *', () => {
+  console.log('running a task every minute');
+  checkValue();
+});
+}
+CronJob();

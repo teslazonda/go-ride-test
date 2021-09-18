@@ -12,7 +12,6 @@ import store from 'store-js';
 import { Redirect } from '@shopify/app-bridge/actions';
 import { Context } from '@shopify/app-bridge-react';
 import ApplyRandomPrices from './ApplyRandomPrices';
-import CronUpdateTitle from './CronUpdateTitle';
 
 // GraphQL query that retrieves products by ID
 const GET_PRODUCTS_BY_ID = gql`

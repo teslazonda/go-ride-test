@@ -65,7 +65,6 @@ class ApplyRandomPrices extends React.Component {
                   id: this.props.selectedItems[variantId].variants.edges[0].node.id,
                   price: price,
                 };
-                console.log(productVariableInput);
 
                 promise = promise.then(() => handleSubmit({ variables: { input: productVariableInput } }));
               }

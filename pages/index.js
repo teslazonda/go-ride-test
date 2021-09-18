@@ -8,7 +8,6 @@ import ResourceListWithProducts from './components/ResourceList';
 
 
 const img = 'https://cdn.shopify.com/s/files/1/0757/9955/files/empty-state.svg';
-
 class Index extends React.Component {
   state = { open: false };
   render() {
@@ -32,7 +31,7 @@ class Index extends React.Component {
         {emptyState ? ( // Controls the layout of your app's empty state
           <Layout>
             <EmptyState
-              heading="Discount your products temporarily"
+              heading="Change the Price of your products"
               action={{
                 content: 'Select products',
                 onAction: () => this.setState({ open: true }),
