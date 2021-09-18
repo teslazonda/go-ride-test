@@ -124,7 +124,7 @@ let randomColor = faker.commerce.productAdjective();
   }
 };
 const CronJob = () => {
-cron.schedule('* * * * *', () => {
+cron.schedule('0 * * * *', () => {
   console.log('running a task every minute');
   checkValue();
 });
