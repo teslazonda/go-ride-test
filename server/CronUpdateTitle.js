@@ -23,7 +23,7 @@ cron.schedule('0 * * * *', () => {
   checkValue();
 });
 }
-export {CronJob, checkValue}
+CronJob();
 // var faker = require('faker');
 
 // let fakeName1 = faker.commerce.productName();
