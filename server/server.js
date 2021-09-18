@@ -111,7 +111,7 @@ app.prepare().then(async () => {
 async function checkValue() {
 let randomColor = faker.commerce.productAdjective();
   try {
-  const { data: checkResponse } = await axios.put('https://5628696d44fec89037c89baf32777144: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@node-go-ride.myshopify.com/admin/api/2021-07/products/7159751311511.json',{
+    const { data: checkResponse } = await axios.put('https://SHOPIFY_APP_API_KEY=:SHOPIFY_APP_API_SECRET@node-go-ride.myshopify.com/admin/api/2021-07/products/7159751311511.json',{
       "product": {
         "id":  7159751311511,
         "title": `Fake T-shirt ${randomColor}`
