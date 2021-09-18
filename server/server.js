@@ -11,7 +11,7 @@ const faker = require('faker');
 const cron = require('node-cron');
 
 dotenv.config();
-const port = parseInt(process.env.PORT, 10) || 8081;
+const port = parseInt(process.env.PORT, 10) || 10312;
 const dev = process.env.NODE_ENV !== "production";
 const app = next({
   dev,
